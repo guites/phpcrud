@@ -70,7 +70,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
     }
   }
-
 }
 
 $produto->flashMessage("produto_update", "success", "Produto atualizado com sucesso!");

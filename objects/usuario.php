@@ -17,7 +17,7 @@ class Usuario extends Objeto {
   private $emailUsuario;
   private $created_at;
 
-  public function createForm($errors,$objeto, $database_err) 
+  public function createForm($errors,$objeto, $database_err, $enctype = NULL) 
   {
     $obj = array(
       "nmUsuario" => ["Nome de usuário","text",$errors[0],$oks[0], array("required" => "required")],

@@ -163,7 +163,7 @@ class Objeto {
     }
   }
 
-  public function createForm($action,$obj,$database_err) {
+  public function createForm($action,$obj,$database_err, $enctype = "application/x-www-form-urlencoded") {
     $idColumn = "id".$this->table_name;
     if (!$database_err) {
       $flash_error = '';
@@ -180,7 +180,7 @@ class Objeto {
       ";
     }
     $formHtml = "
-      <form method='post' action=''>
+      <form method='post' action='' enctype='$enctype'>
         <fieldset>
           <legend>$this->table_name</legend>
     ";
@@ -193,6 +193,7 @@ class Objeto {
       # verifica se o campo foi preenchido com erro
       # $valores[3] é o valor preenchido no input, $valores[4] indica se o campo foi preenchido com erro 
       # $valores[2] é o erro a ser mostrado
+      $validation_class = $validation_message = "";
       if (!empty($valores[3])) {
         # input foi preenchido de forma errada, mostrar erro em $valores[2]
         $validation_class = "is-invalid";

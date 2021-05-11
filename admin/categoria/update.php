@@ -56,6 +56,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       } else {
         $_SESSION['categoria_update_erro'] = true;
       }
+      header("location: ");
+      exit();
     }
   }
 

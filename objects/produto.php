@@ -33,31 +33,40 @@ class Produto extends Objeto {
   }
 
   public function produtoHomeHtml($prod) {
+    $url = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
     $imgs = $prod['nomeDoArquivo'];
     $dsImgs = $prod['dsImagem'];
     $id = $prod['idProduto'];
     $nome = $prod['nmProduto'];
     $descr = $prod['dsProduto'];
-    $html = "
-    <div class='col-lg-4'>
+    #$html .= "<div class='col-lg-8'>";
+    $html .= "
+      <h4 class='card-title'>$nome</h4>
     ";
     if (!empty($imgs) && !empty($dsImgs)) {
       $img_arr = explode(',',$imgs);
       $dsImgs_arr = explode(',',$dsImgs);
+      $html .= "<div class='container d-flex'>";
       foreach($img_arr as $key => $i) {
-        $html .= "<img src='$i' title='$dsImgs_arr[$key]' alt='$dsImgs_arr[$key]'/>";
+        $i_url = str_replace($_SERVER['DOCUMENT_ROOT'], $url, $i);
+        $html .= "<div class='card bg-light mb-3' style='max-width:15rem;'>";
+        $html .= "<div class='card-header'>imagem #$key</div>";
+        $html .= "<a class='nav-link' href='$i_url'><img class='img-thumbnail rounded' loading='lazy' src='$i_url'/></a>";
+        $html .= "<div class='card-body'><p class='card-text'>$dsImgs_arr[$key]</p></div></div>";
       }
+      $html .= "</div>";
     }
     $html .= "
-      <h4 class='card-title'>$nome</h4>
-      <small>código $id</small>
-      <p>$descr</p>
-    </div>
+      <div>
+        <small>código $id</small>
+        <p>$descr</p>
+      </div>
     ";
+    #$html.= "</div>";
     echo $html;
   }
 
-  public function createForm($errors, $objeto, $database_err) 
+  public function createForm($errors, $objeto, $database_err, $enctype = NULL) 
   {
     # $obj é um array que guarda as informações necessárias para cada campo
     # cada campo é um array

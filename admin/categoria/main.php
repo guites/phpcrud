@@ -25,6 +25,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['categoria_criada'] = true;
         $dsCategoria = "";
         $categoria_err = $database_err = "";
+        header("location: ");
+        exit();
       } else {
         $_SESSION['categoria_criada_erro'] = true;
       }
@@ -36,6 +38,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
       $_SESSION['categoria_deletada_erro'] = true;
     }
+    header("location: ");
+    exit();
   } else if ($_POST['action'] == 'update') {
     $dsCategoria = trim($_POST['dsCategoria']);
     $idCategoria = trim($_POST['idCategoria']);
@@ -58,6 +62,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       } else {
         $_SESSION['categoria_update_erro'] = true;
       }
+      header("location: ");
+      exit();
     }
   }
 }

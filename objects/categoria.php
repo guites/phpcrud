@@ -30,7 +30,7 @@ c.dsCategoria, c.idCategoria";
   
   }
 
-  public function createForm($errors, $objeto, $database_err) 
+  public function createForm($errors, $objeto, $database_err, $enctype = NULL) 
   {
     # $obj é um array que guarda as informações necessárias para cada campo
     # cada campo é um array

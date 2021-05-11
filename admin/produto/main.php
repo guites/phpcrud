@@ -47,6 +47,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['produto_delete_error'] = true;
     }
   }
+  header("location: ");
+  exit();
 }
 
 echo "<h1 class='mt-4'>Página dos Produtos</h1>";
