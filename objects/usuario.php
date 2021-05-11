@@ -29,11 +29,11 @@ class Usuario extends Objeto {
     return parent::createForm($action,$obj,$database_err);
   }
 
-  public function createLogin($errors, $obj, $database_err)
+  public function createLogin($errors, $objeto, $database_err)
   {
     $obj = array(
-      "emailUsuario" => ["Seu e-mail", "email",$errors[0],$oks[0],array("required" => "required")],
-      "pwdUsuario" => ["Senha", "password",$errors[1],$oks[1], array("required" => "required")],
+      "emailUsuario" => ["Seu e-mail", "email",$objeto[0],$errors[0],array("required" => "required")],
+      "pwdUsuario" => ["Senha", "password",$objeto[1],$errors[1], array("required" => "required")],
     );
 
     return parent::createForm($action, $obj, $database_err);

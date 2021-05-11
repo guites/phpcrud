@@ -68,8 +68,7 @@ $usuario->flashMessage("cadastro", "success", "Cadastro realizado com sucesso! P
 # $usuario->cadastradoComSucessoMessage();
 # $usuario->deslogadoComSucessoMessage();
 echo $usuario->createLogin(
-  "",
-  array($email_err,$password_err,$login_err,$database_err),
+  array($email_err,$password_err),
   array($email,""),
   $database_err
 );
