@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../dotenv.php";
-(new DotEnv(__DIR__ . '/../.env'))->load();
+(new DotEnv(__DIR__ . '/../../.env'))->load();
 class DBClass{
 
   /**
@@ -29,6 +29,7 @@ class DBClass{
       $this->connection = null;
       try{
           $this->connection = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->database, $this->username, $this->password);
+          $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
           $this->connection->exec("set names utf8");
       }catch(PDOException $exception){
           echo "Error: " . $exception->getMessage();
