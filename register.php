@@ -104,11 +104,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 require "header.php";
 echo "<h1>Cadastro</h1>";
 echo $usuario->createForm(
-  "",
   array($username_err,$password_err,$confirm_password_err,$email_err),
   array($username, $password, $confirm_password, $email),
-  $database_err,
-  ""
+  $database_err
 );
 require "footer.php"; 
 ?>

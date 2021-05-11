@@ -20,10 +20,10 @@ class Usuario extends Objeto {
   public function createForm($errors,$objeto, $database_err, $enctype = NULL) 
   {
     $obj = array(
-      "nmUsuario" => ["Nome de usuário","text",$errors[0],$oks[0], array("required" => "required")],
-      "pwdUsuario" => ["Senha", "password",$errors[1],$oks[1], array("required" => "required")],
-      "pwdConfirm" => ["Confirme sua senha", "password",$errors[2],$oks[2],array("required" => "required")],
-      "emailUsuario" => ["Seu e-mail", "email",$errors[3],$oks[3],array("required" => "required")]
+      "nmUsuario" => ["Nome de usuário","text",$objeto[0],$errors[0], array("required" => "required")],
+      "pwdUsuario" => ["Senha", "password",$objeto[1], $errors[1], array("required" => "required")],
+      "pwdConfirm" => ["Confirme sua senha", "password",$objeto[2],$errors[2],array("required" => "required")],
+      "emailUsuario" => ["Seu e-mail", "email",$objeto[3], $errors[3],array("required" => "required")]
     );
 
     return parent::createForm($action,$obj,$database_err);
