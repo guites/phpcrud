@@ -29,10 +29,18 @@ class Objeto {
      $query .= " WHERE " . $clause['column'] . " = " . $clause['value'];
     }
     $query .= " ORDER BY " . $order . " " . $sort_order; 
-    $stmt = $this->connection->prepare($query);
-    $stmt->execute();
-    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-      $results[] = $row;
+    if($stmt = $this->connection->prepare($query)) {
+      if($stmt->execute()) {
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+          $results[] = $row;
+        }
+      } else {
+        $results['error'] = true;
+        $results['message'] = json_encode($stmt->errorInfo());
+      }
+    } else {
+      $results['error'] = true;
+      $results['message'] = json_encode($stmt->errorInfo());
     }
     return $results;
 
@@ -155,92 +163,6 @@ class Objeto {
     }
   }
 
- #  public function createForm($action,$obj,$oks,$database_err) {
- #    $idColumn = "id".$this->table_name;
- #    if (!$database_err) {
- #      $flash_error = '';
- #    } else {
- #      $flash_error = "
- #        <div class='col-lg-4'>
- #            <div class='bs-component'>
- #              <div class='alert alert-dismissible alert-danger'>
- #                <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
- #                <strong>Oh não!</strong>Um erro ocorreu!<a href='#' class='alert-link'>Por favor, nos avise</a> para que possamos corrigir o quanto antes.
- #              </div>
- #            <button class='source-button btn btn-primary btn-xs' role='button' tabindex='0'>&lt; &gt;</button></div>
- #        </div>
- #      ";
- #    }
- #    $formHtml = "
- #      <form method='post' action=''>
- #        <fieldset>
- #          <legend>$this->table_name</legend>
- #    ";
- #    if ($action == 'update') {
- #      $formHtml .= "
- #        <div class='form-group'>
- #          <label for='$idColumn' class='col-sm-10 col-form-label'>
- #            código " . $oks[0]. "
- #          </label>
- #          <div class='col-sm-10'>
- #            <input type='text' name='$idColumn' value='". $oks[0] . "' class='form-control' readonly=''>
- #          </div>
- #        </div>
- #      ";
- #    }
- #    foreach ($obj as $key => $value) {
- #      if (empty($value[2])) {
- #        if(empty($value[3])){
- #          $invalid_feedback = '';
- #          $is_invalid = '';
- #        } else {
- #          $is_invalid = 'is-valid';
- #          $invalid_feedback = "
- #            <div class='valid-feedback'>
- #              Valor preenchido corretamente.
- #            </div>
- #          ";
- #        }
- #      } else {
- #        $is_invalid = 'is-invalid';
- #        $invalid_feedback = "
- #        <div class='invalid-feedback'>
- #          $value[2]
- #        </div>
- #        ";
- #      }
- #      if(empty($value[4])) {
- #        $input_options = "";
- #      } else {
- #        $input_options = "";
- #        foreach ($value[4] as $prop => $opt) {
- #          $input_options .= "$prop='$opt' ";
- #        }
- #      }
- #      $formHtml .= "
- #      <div class='form-group'>
- #        <label for='$key' class='col-sm-10 col-form-label'>
- #          $value[0]
- #        </label>
- #        <div class='col-sm-10'>
- #          <input type='$value[1]' value='$value[3]' name='$key' id='$key' class='form-control $is_invalid' $input_options >
- #          $invalid_feedback
- #        </div>
- #      </div>
- #      ";
- #    }
- #    $formHtml .= "
- #    <input type='hidden' name='action' value='$action'>
- #    ";
- #    $formHtml .= "
- #      </fieldset>
- #      <div class='bs-component mb-3 mt-3'>
- #        <button type='submit' class='btn btn-primary'>Enviar</button>
- #      </div>
- #    </form>
- #    ";
- #    return $formHtml;
- #  }
   public function createForm($action,$obj,$database_err) {
     $idColumn = "id".$this->table_name;
     if (!$database_err) {
@@ -341,7 +263,7 @@ class Objeto {
   }
 
 
-  public function adminTableList($rows) {
+  public function adminTableList($rows, $media = NULL) {
     # precisa pegar a informação de que tabela que se trata, para acessar a coluna id.
     $idColumn = "id". get_class($this);
     # início cabeçalho tabela
@@ -356,6 +278,7 @@ class Objeto {
         <th scope='col'>$hr</ht>
       ";
     }
+    if ($media) $tableHtml .= "<th scope='col'>Mídias</th>";
     $tableHtml .= "
           <th scope='col'>Editar</th>
           <th scope='col'>Deletar</th>
@@ -374,6 +297,18 @@ class Objeto {
       foreach($row as $r) {
         $tableHtml .= "
           <td>$r</td>
+        ";
+      }
+      # botão para ver midias, caso $media = true
+      if ($media) {
+        $tableHtml .="
+          <td>
+            <button type='button' class='btn btn-link'>
+              <a href='/admin/imagem?object=$this->table_name&id=$row[$idColumn]'>
+                Mídias
+              </a>
+            </button>
+          </td>
         ";
       }
       # botão para editar categoria

@@ -62,5 +62,5 @@ echo $produto->createForm(
 );
 echo "<h2 class='mt-4'>Produtos Existentes</h2>";
 $produtos = $produto->getAll();
-echo $produto->adminTableList($produtos);
+echo $produto->adminTableList($produtos, true);
 echo "</div>";
