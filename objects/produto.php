@@ -40,7 +40,7 @@ class Produto extends Objeto {
     $nome = $prod['nmProduto'];
     $descr = $prod['dsProduto'];
     #$html .= "<div class='col-lg-8'>";
-    $html .= "
+    $html = "
       <h4 class='card-title'>$nome</h4>
     ";
     if (!empty($imgs) && !empty($dsImgs)) {
