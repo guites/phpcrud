@@ -1,4 +1,10 @@
-###Fontes:
+# PHP CRUD
+Este é um projeto em PHP que habilita usuários cadastrados a criar categorias e produtos, e adicionar imagens aos produtos.
+
+## Veja o projeto
+Versão em php 8 disponível em <http://crud.omandriao.com.br/>
+
+### Fontes:
 - [https://www.techiediaries.com/php-rest-api/](https://www.techiediaries.com/php-rest-api/)
 - [https://github.com/devcoder-xyz/php-dotenv](https://github.com/devcoder-xyz/php-dotenv)
 - [https://github.com/tutsplus/how-to-upload-a-file-in-php-with-example/blob/master/upload.php](https://github.com/tutsplus/how-to-upload-a-file-in-php-with-example/blob/master/upload.php)
